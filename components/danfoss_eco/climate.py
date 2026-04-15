@@ -8,6 +8,10 @@ from esphome.const import (
     
     CONF_TEMPERATURE,
     CONF_BATTERY_LEVEL,
+
+    CONF_VISUAL,
+    CONF_MIN_TEMPERATURE,
+    CONF_MAX_TEMPERATURE,
     
     CONF_ENTITY_CATEGORY,
     ENTITY_CATEGORY_DIAGNOSTIC,
@@ -70,6 +74,15 @@ CONFIG_SCHEMA = (
                 accuracy_decimals=1,
                 device_class=DEVICE_CLASS_TEMPERATURE,
                 state_class=STATE_CLASS_MEASUREMENT,
+            ),
+            cv.Optional(CONF_VISUAL, default={
+                CONF_MIN_TEMPERATURE:10,
+                CONF_MAX_TEMPERATURE:30,
+            }): cv.Schema(
+                {
+                    cv.Optional(CONF_MIN_TEMPERATURE): cv.temperature,
+                    cv.Optional(CONF_MAX_TEMPERATURE): cv.temperature,
+                }
             ),
             cv.Optional(CONF_PROBLEMS): binary_sensor.binary_sensor_schema().extend({
                 cv.Optional(CONF_NAME): cv.string,
